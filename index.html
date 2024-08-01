@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Custom Stylesheet -->
+    <link href="./assets/css/style.css" rel="stylesheet">
+
+    <title>CSCI 1105 GenAI Prompts</title>
+</head>
+
+<body>
+<div class="container-fluid">
+    <!-- Navigation Bar -->
+    <div class="row justify-content-center">
+        <div class="col col-md-8 col-lg-6 col-xl-4">
+            <div class="step-bar">
+                <div class="step-bar-step">
+                    <div class="step-bar-circle">
+                        1
+                    </div>
+                    <span class="step-name">Assistant</span>
+                </div>
+                <div class="step-bar-divider"></div>
+                <div class="step-bar-step">
+                    <div class="step-bar-circle step-bar-circle-disabled">
+                        2
+                    </div>
+                    <span class="step-name">Skill</span>
+                </div>
+                <div class="step-bar-divider"></div>
+                <div class="step-bar-step">
+                    <div class="step-bar-circle step-bar-circle-disabled">
+                        3
+                    </div>
+                    <span class="step-name">Review</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="row justify-content-center">
+        <div class="col col-md-8 col-lg-6 col-xl-4 text-center">
+            <h1 id="title" class="main-header">Select your coding assistant type</h1>
+            <p id="instructions" class="main-header-subheading">You can choose an instructor, coach, or peer</p>
+        </div>
+    </div>
+
+    <!-- Coding Assistant Options View - 0 -->
+    <div id="assistant-view" class="row justify-content-center ui-view">
+        <div class="col col-md-8 col-lg-6 col-xl-4">
+            <!-- Button Card Template -->
+            <button id="btnInstructor" class="card" type="button" onclick="optionSelected(this.id)" onmouseover="optionHover(this.id)" onmouseleave="optionLeave(this.id)">
+                <div class="row align-items-center">
+                    <div class="col-9 col-md-10">
+                        <div class="card-body text-start">
+                            <h5 class="card-title">Instructor</h5>
+                            <p class="card-text">Offers guidance and instruction through interactive demonstrations, allowing you to observe the AI coding assistant performing tasks.</p>
+                        </div>
+                    </div>
+                    <div class="btnArrow col-3 col-md-2 d-none">
+                        <img src="./assets/imgs/arrow-right.png" class="img-fluid rounded-start arrow-right" alt="Arrow">
+                    </div>
+                </div>
+            </button>
+            <!-- Repeat for other buttons -->
+            <button id="btnCoach" class="card" type="button" onclick="optionSelected(this.id)" onmouseover="optionHover(this.id)" onmouseleave="optionLeave(this.id)">
+                <div class="row align-items-center">
+                    <div class="col-9 col-md-10">
+                        <div class="card-body text-start">
+                            <h5 class="card-title">Coach</h5>
+                            <p class="card-text">Provides mentoring and support in performing tasks, enabling you to receive interactive guidance and prompts.</p>
+                        </div>
+                    </div>
+                    <div class="btnArrow col-3 col-md-2 d-none">
+                        <img src="./assets/imgs/arrow-right.png" class="img-fluid rounded-start arrow-right" alt="Arrow">
+                    </div>
+                </div>
+            </button>
+            <button id="btnPeer" class="card" type="button" onclick="optionSelected(this.id)" onmouseover="optionHover(this.id)" onmouseleave="optionLeave(this.id)">
+                <div class="row align-items-center">
+                    <div class="col-9 col-md-10">
+                        <div class="card-body text-start">
+                            <h5 class="card-title">Peer</h5>
+                            <p class="card-text">Collaborates with you as a fellow learner. AI coding assistant performs a task so that you may learn by teaching.</p>
+                        </div>
+                    </div>
+                    <div class="btnArrow col-3 col-md-2 d-none">
+                        <img src="./assets/imgs/arrow-right.png" class="img-fluid rounded-start arrow-right" alt="Arrow">
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Skill Options View - 1 -->
+    <div id="skill-view" class="container ui-view">
+        <div id="skill-view-filters" class="row justify-content-center">
+            <div class="col col-md-8 col-lg-6 col-xl-4 text-center p-3">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="" id="skill-view-reading" checked onclick="handleFilter(this)">
+                    <label class="form-check-label" for="skill-view-reading">Reading</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="" id="skill-view-writing" checked onclick="handleFilter(this)">
+                    <label class="form-check-label" for="skill-view-writing">Writing</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="" id="skill-view-revising" checked onclick="handleFilter(this)">
+                    <label class="form-check-label" for="skill-view-revising">Revising</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="skill-view-prompts" class="row row-cols-auto justify-content-center">
+            <!-- Skill Button Card Template -->
+            <div class="col m-1">
+                <button id="skill-1" class="card mb-3 mx-1 h-100 prompt-reading" type="button" onclick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">Trace program execution and predict the output</p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-2" class="card mb-3 mx-1 h-100 prompt-reading" type="button" onclick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">Create a tracing table to show how the program outputs differ based on different inputs</p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+            <button id="skill-3" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-reading" style="max-width: 18rem;">
+                <div class="card-body text-start">
+                    <p class="card-text">
+                        Explain the purpose of this code line-by-line
+                    </p>
+                </div>
+            </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-4" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-reading" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            Explain the purpose of this program in your own words
+                        </p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-5" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-writing" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            Give me pseudocode statements to translate into code
+                        </p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-6" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-writing" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            Describe steps for an algorithm to implement the solution
+                        </p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-7" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-writing" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            Complete the code solution by writing the missing steps
+                        </p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-8" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-writing" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            Show me an alternate way to solve this same problem
+                        </p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-9" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-revising" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            Critique code like an experienced programmer would provide suggestions for improvement
+                        </p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-10" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-revising" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            Suggest specific ways to improve the code
+                        </p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-11" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-revising" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            Help me write test cases to evaluate the solution
+                        </p>
+                    </div>
+                </button>
+            </div>
+            <div class="col m-1">
+                <button id="skill-12" onClick="skillSelected(this.id)" onmouseover="skillHover(this.id)" onmouseleave="skillLeave(this.id)" type="button" class="card mb-3 mx-1 h-100 prompt-revising" style="max-width: 18rem;">
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            Help me fix this issue or error with my code
+                        </p>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review View - 2 -->
+    <div class="row justify-content-center ui-view">
+        <div class="col col-md-8 col-lg-6 col-xl-4 text-center">
+            <div class="mt-3">
+                <textarea class="form-control" id="textBox" rows="9"></textarea>
+            </div>
+            <button type="button" onclick="copyToClipboard()" class="btn btn-secondary btn-lg w-75 m-3">Copy to Clipboard</button>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Custom Script -->
+<script src="./assets/js/script.js"></script>
+
+<!-- Initialize View Controller -->
+<script>
+    window.onload = function() {
+        viewController(0);
+    };
+</script>
+</body>
+
+</html>

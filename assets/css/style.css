@@ -1,0 +1,90 @@
+/* Root Styles */
+:root {
+    --primary-color: #0878a1;
+    --disabled-color: #bdc1c9;
+    --text-color: #6d6f74;
+    --border-color: #bdc1c9;
+    --bg-color: #f5f5f6;
+}
+
+/* Body Styles */
+body {
+    background-color: var(--bg-color);
+}
+
+/* Step Bar */
+.step-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin: 25px 0;
+}
+
+.step-bar-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.step-bar-divider {
+    width: 100%;
+    margin: 0 16px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.step-bar-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    aspect-ratio: 1;
+}
+
+.step-bar-circle-disabled {
+    background-color: var(--disabled-color);
+}
+
+.step-bar-name {
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+/* Headers */
+h1 {
+    font-size: 36px;
+    line-height: 1.14;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin: .67em 0;
+}
+
+/* Main Header */
+.main-header {
+    text-align: center;
+}
+
+.main-header-subheading {
+    font-size: 16px;
+    color: var(--text-color);
+    margin-top: 8px;
+}
+
+/* Button Styles */
+#assistant-view button {
+    margin: 24px 0;
+}
+
+.arrow-right {
+    height: 50px;
+    width: auto;
+}
